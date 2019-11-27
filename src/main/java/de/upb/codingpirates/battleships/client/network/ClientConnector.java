@@ -1,4 +1,4 @@
-package de.upb.codingpirates.battleships.client;
+package de.upb.codingpirates.battleships.client.network;
 
 import com.google.inject.Inject;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;

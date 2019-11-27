@@ -1,6 +1,7 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import de.upb.codingpirates.battleships.client.ClientApplication;
+import com.google.inject.Inject;
+import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -9,10 +10,12 @@ import de.upb.codingpirates.battleships.network.message.response.PlaceShipsRespo
 
 public class PlaceShipsResponseHandler implements MessageHandler<PlaceShipsResponse> {
 
+    @Inject
+    private Handler handler;
 
     @Override
     public void handle(PlaceShipsResponse message, Id connectionId) throws GameException {
-        ClientApplication.handler.handlePlaceShipsResponse(message);
+        handler.handlePlaceShipsResponse(message);
     }
 
     @Override

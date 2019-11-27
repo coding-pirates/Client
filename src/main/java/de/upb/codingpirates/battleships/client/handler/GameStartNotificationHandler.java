@@ -1,6 +1,7 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import de.upb.codingpirates.battleships.client.ClientApplication;
+import com.google.inject.Inject;
+import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -9,10 +10,12 @@ import de.upb.codingpirates.battleships.network.message.notification.GameStartNo
 
 public class GameStartNotificationHandler implements MessageHandler<GameStartNotification> {
 
+    @Inject
+    private Handler handler;
 
     @Override
     public void handle(GameStartNotification message, Id connectionId) throws GameException {
-        ClientApplication.handler.handleGameStartNotification(message);
+        handler.handleGameStartNotification(message);
     }
 
     @Override

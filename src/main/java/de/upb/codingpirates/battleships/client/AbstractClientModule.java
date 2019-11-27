@@ -2,10 +2,11 @@ package de.upb.codingpirates.battleships.client;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import de.upb.codingpirates.battleships.client.network.ClientConnector;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 
-public class ClientModule extends AbstractModule {
+public abstract class AbstractClientModule extends AbstractModule {
     @Override
     protected void configure() {
         this.install(new ClientNetworkModule());
