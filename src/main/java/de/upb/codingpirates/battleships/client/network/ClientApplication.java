@@ -1,19 +1,18 @@
 package de.upb.codingpirates.battleships.client.network;
 
-import org.apache.logging.log4j.LogManager;
-
-import java.io.IOException;
-
-import javax.annotation.Nonnull;
 
 import de.upb.codingpirates.battleships.network.NetworkApplication;
 
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.util.logging.Logger;
+
 public class ClientApplication extends NetworkApplication{
+    private static final Logger LOGGER = Logger.getLogger(ClientApplication.class.getName());
     @Nonnull
     private final ClientConnector clientConnector;
-    //private static final Logger LOGGER = LogManager.getLogger();
     public ClientApplication() throws IllegalAccessException, IOException, InstantiationException {
-      // LOGGER.info("Start client network module");
+        LOGGER.info("Start client network module");
 
         this.useModule(ClientModule.class).run();
         this.clientConnector = (ClientConnector) this.getHandler();
