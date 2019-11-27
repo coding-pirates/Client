@@ -5,18 +5,18 @@ import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
 import de.upb.codingpirates.battleships.network.message.MessageHandler;
-import de.upb.codingpirates.battleships.network.message.notification.GameInitNotification;
+import de.upb.codingpirates.battleships.network.message.notification.PauseNotification;
 
-public class GameInitNotificationHandler implements MessageHandler<GameInitNotification> {
+public class PauseNotificationHandler implements MessageHandler<PauseNotification> {
 
 
     @Override
-    public void handle(GameInitNotification message, Id connectionId) throws GameException {
-        ClientApplication.handler.handleGameInitNotification(message);
+    public void handle(PauseNotification message, Id connectionId) throws GameException {
+        ClientApplication.handler.handlePauseNotification(message);
     }
 
     @Override
     public boolean canHandle(Message message) {
-        return message instanceof GameInitNotification;
+        return message instanceof PauseNotification;
     }
 }
