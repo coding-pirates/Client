@@ -1,6 +1,5 @@
 package de.upb.codingpirates.battleships.client.network;
 
-import de.upb.codingpirates.battleships.client.AbstractClientModule;
 import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.client.MessageHandler;
 
