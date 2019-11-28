@@ -11,10 +11,10 @@ public class ClientApplication extends NetworkApplication{
     private static final Logger LOGGER = Logger.getLogger(ClientApplication.class.getName());
     @Nonnull
     private final ClientConnector clientConnector;
-    public ClientApplication() throws IllegalAccessException, InstantiationException {
+    public ClientApplication(Class<? extends AbstractClientModule> clientModule) throws IllegalAccessException, InstantiationException {
         LOGGER.info("Start client network module");
 
-        this.useModule(AbstractClientModule.class).run();
+        this.useModule(clientModule).run();
         this.clientConnector = (ClientConnector) this.getHandler();
     }
 
@@ -23,9 +23,9 @@ public class ClientApplication extends NetworkApplication{
         return clientConnector;
     }
 
-    public static ClientConnector create(Class<? extends Handler> messageHandler) {
+    public static ClientConnector create(Class<? extends AbstractClientModule> clientModule) {
         try {
-            return  new ClientApplication().getClientConnector();
+            return  new ClientApplication(clientModule).getClientConnector();
         }
         catch (IllegalAccessException | InstantiationException e) {
             System.out.println(e);
