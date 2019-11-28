@@ -8,25 +8,26 @@ import de.upb.codingpirates.battleships.network.NetworkApplication;
 import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 
-public class ClientApplication extends NetworkApplication{
+public class ClientApplication<T extends ConnectionHandler> extends NetworkApplication{
     private static final Logger LOGGER = Logger.getLogger(ClientApplication.class.getName());
     @Nonnull
-    private final ConnectionHandler clientConnector;
+    private final T clientConnector;
     public ClientApplication(Class<? extends AbstractClientModule> clientModule) throws IllegalAccessException, InstantiationException {
         LOGGER.info("Start client network module");
 
         this.useModule(clientModule).run();
-        this.clientConnector = (ConnectionHandler) this.getHandler();
+        //noinspection ConstantConditions,unchecked
+        this.clientConnector = (T) this.getHandler();
     }
 
     @Nonnull
-    public ConnectionHandler getClientConnector() {
+    public T getClientConnector() {
         return clientConnector;
     }
 
-    public static ConnectionHandler create(Class<? extends AbstractClientModule> clientModule) {
+    public static <T extends ConnectionHandler> T create(Class<? extends AbstractClientModule<T>> clientModule) {
         try {
-            return  new ClientApplication(clientModule).getClientConnector();
+            return  new ClientApplication<T>(clientModule).getClientConnector();
         }
         catch (IllegalAccessException | InstantiationException e) {
             System.out.println(e);

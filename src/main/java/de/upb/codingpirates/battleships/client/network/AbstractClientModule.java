@@ -5,10 +5,10 @@ import com.google.inject.Singleton;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 
-public abstract class AbstractClientModule extends AbstractModule {
-    private Class<? extends ConnectionHandler> connection;
+public abstract class AbstractClientModule<T extends ConnectionHandler> extends AbstractModule {
+    private Class<T> connection;
 
-    public AbstractClientModule(Class<? extends ConnectionHandler> connection) {
+    public AbstractClientModule(Class<T> connection) {
         this.connection = connection;
     }
 
