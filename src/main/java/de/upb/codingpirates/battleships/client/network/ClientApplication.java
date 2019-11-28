@@ -14,7 +14,7 @@ public class ClientApplication extends NetworkApplication{
     public ClientApplication() throws IllegalAccessException, InstantiationException {
         LOGGER.info("Start client network module");
 
-        this.useModule(AbstractClientModule.class).run();
+        this.useModule(ClientModule.class).run();
         this.clientConnector = (ClientConnector) this.getHandler();
     }
 
