@@ -1,16 +1,15 @@
 package de.upb.codingpirates.battleships.client.network;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.NetworkApplication;
 
 import javax.annotation.Nonnull;
+import java.util.logging.Logger;
 
 public class ClientApplication<T extends ConnectionHandler> extends NetworkApplication{
-    private static final Logger LOGGER = LogManager.getLogger(ClientApplication.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ClientApplication.class.getName());
     @Nonnull
     private final T clientConnector;
     public ClientApplication(Class<? extends AbstractClientModule> clientModule) throws IllegalAccessException, InstantiationException {
