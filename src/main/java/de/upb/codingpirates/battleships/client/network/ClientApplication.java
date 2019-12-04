@@ -5,6 +5,7 @@ import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.NetworkApplication;
 
 import javax.annotation.Nonnull;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClientApplication<T extends ConnectionHandler> extends NetworkApplication{
@@ -12,7 +13,7 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
 
     @Nonnull
     private final T clientConnector;
-    public ClientApplication(Class<? extends AbstractClientModule> clientModule) throws IllegalAccessException, InstantiationException {
+    private ClientApplication(Class<? extends AbstractClientModule<T>> clientModule) throws IllegalAccessException, InstantiationException {
         LOGGER.info("Start client network module");
 
         this.useModule(clientModule).run();
@@ -28,11 +29,14 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
     public static <T extends ConnectionHandler> T create(Class<? extends AbstractClientModule<T>> clientModule) {
         //noinspection TryWithIdenticalCatches
         try {
-            return  new ClientApplication<T>(clientModule).getClientConnector();
+            return  new ClientApplication<>(clientModule).getClientConnector();
         } catch (IllegalAccessException e) {
-            throw new IllegalStateException("Could not create ClientApplication");
+            LOGGER.log(Level.INFO,"failed", e);
+            throw new IllegalStateException("Could not create ClientApplication " + clientModule.getName());
         } catch (InstantiationException e) {
+            LOGGER.log(Level.INFO,"failed", e);
             throw new IllegalStateException("Could not create ClientApplication");
         }
     }
+
 }
