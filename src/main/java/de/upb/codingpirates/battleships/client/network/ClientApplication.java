@@ -1,7 +1,6 @@
 package de.upb.codingpirates.battleships.client.network;
 
 
-import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.NetworkApplication;
 
 import javax.annotation.Nonnull;
@@ -28,8 +27,7 @@ public class ClientApplication extends NetworkApplication{
             return  new ClientApplication(clientModule).getClientConnector();
         }
         catch (IllegalAccessException | InstantiationException e) {
-            System.out.println(e);
+            throw new IllegalStateException("Could not create ClientApplication");
         }
-        return null;
     }
 }

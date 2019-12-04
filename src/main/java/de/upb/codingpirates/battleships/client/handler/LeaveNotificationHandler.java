@@ -15,7 +15,7 @@ public class LeaveNotificationHandler implements MessageHandler<LeaveNotificatio
 
     @Override
     public void handle(LeaveNotification message, Id connectionId) throws GameException {
-        handler.handleLeaveNotification(message);
+        handler.handleLeaveNotification(message, connectionId.getInt());
     }
 
     @Override

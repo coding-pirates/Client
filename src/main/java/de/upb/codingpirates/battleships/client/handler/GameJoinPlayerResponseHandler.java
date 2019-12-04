@@ -15,7 +15,7 @@ public class GameJoinPlayerResponseHandler implements MessageHandler<GameJoinPla
 
     @Override
     public void handle(GameJoinPlayerResponse message, Id connectionId) throws GameException {
-        handler.handleGameJoinPlayer(message);
+        handler.handleGameJoinPlayer(message, connectionId.getInt());
     }
 
     @Override

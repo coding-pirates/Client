@@ -15,7 +15,7 @@ public class ConnectionClosedReportHandler implements MessageHandler<ConnectionC
 
     @Override
     public void handle(ConnectionClosedReport message, Id connectionId) throws GameException {
-        handler.handleConnectionClosedReport(message);
+        handler.handleConnectionClosedReport(message, connectionId.getInt());
     }
 
     @Override

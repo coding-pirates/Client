@@ -15,7 +15,7 @@ public class GameStartNotificationHandler implements MessageHandler<GameStartNot
 
     @Override
     public void handle(GameStartNotification message, Id connectionId) throws GameException {
-        handler.handleGameStartNotification(message);
+        handler.handleGameStartNotification(message, connectionId.getInt());
     }
 
     @Override

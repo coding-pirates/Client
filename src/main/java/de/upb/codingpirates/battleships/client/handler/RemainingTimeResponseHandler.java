@@ -15,7 +15,7 @@ public class RemainingTimeResponseHandler implements MessageHandler<RemainingTim
 
     @Override
     public void handle(RemainingTimeResponse message, Id connectionId) throws GameException {
-        handler.handleRemainingTimeResponse(message);
+        handler.handleRemainingTimeResponse(message, connectionId.getInt());
     }
 
     @Override

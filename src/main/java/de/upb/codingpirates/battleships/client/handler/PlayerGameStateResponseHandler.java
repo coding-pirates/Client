@@ -15,7 +15,7 @@ public class PlayerGameStateResponseHandler implements MessageHandler<PlayerGame
 
     @Override
     public void handle(PlayerGameStateResponse message, Id connectionId) throws GameException {
-        handler.handlePlayerGameStateResponse(message);
+        handler.handlePlayerGameStateResponse(message, connectionId.getInt());
     }
 
     @Override
