@@ -15,7 +15,7 @@ public class PlaceShipsResponseHandler implements MessageHandler<PlaceShipsRespo
 
     @Override
     public void handle(PlaceShipsResponse message, Id connectionId) throws GameException {
-        handler.handlePlaceShipsResponse(message);
+        handler.handlePlaceShipsResponse(message, connectionId.getInt());
     }
 
     @Override

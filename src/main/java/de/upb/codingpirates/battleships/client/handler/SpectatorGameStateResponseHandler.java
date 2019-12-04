@@ -15,7 +15,7 @@ public class SpectatorGameStateResponseHandler implements MessageHandler<Spectat
 
     @Override
     public void handle(SpectatorGameStateResponse message, Id connectionId) throws GameException {
-        handler.handleSpectatorGameStateResponse(message);
+        handler.handleSpectatorGameStateResponse(message, connectionId.getInt());
     }
 
     @Override

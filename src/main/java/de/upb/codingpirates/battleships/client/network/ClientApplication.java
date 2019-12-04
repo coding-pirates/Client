@@ -30,8 +30,7 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
             return  new ClientApplication<T>(clientModule).getClientConnector();
         }
         catch (IllegalAccessException | InstantiationException e) {
-            System.out.println(e);
+            throw new IllegalStateException("Could not create ClientApplication");
         }
-        return null;
     }
 }

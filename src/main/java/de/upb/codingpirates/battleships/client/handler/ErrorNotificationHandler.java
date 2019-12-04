@@ -15,7 +15,7 @@ public class ErrorNotificationHandler implements MessageHandler<ErrorNotificatio
 
     @Override
     public void handle(ErrorNotification message, Id connectionId) throws GameException {
-        handler.handleErrorNotification(message);
+        handler.handleErrorNotification(message, connectionId.getInt());
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ShotsResponseHandler implements MessageHandler<ShotsResponse> {
 
     @Override
     public void handle(ShotsResponse message, Id connectionId) throws GameException {
-        handler.handleShotsResponse(message);
+        handler.handleShotsResponse(message, connectionId.getInt());
     }
 
     @Override

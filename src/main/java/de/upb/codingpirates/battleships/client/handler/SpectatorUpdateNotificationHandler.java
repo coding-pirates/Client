@@ -15,7 +15,7 @@ public class SpectatorUpdateNotificationHandler implements MessageHandler<Specta
 
     @Override
     public void handle(SpectatorUpdateNotification message, Id connectionId) throws GameException {
-        handler.handleSpectatorUpdateNotification(message);
+        handler.handleSpectatorUpdateNotification(message, connectionId.getInt());
     }
 
     @Override

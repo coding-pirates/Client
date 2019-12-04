@@ -15,7 +15,7 @@ public class PlayerUpdateNotificationHandler implements MessageHandler<PlayerUpd
 
     @Override
     public void handle(PlayerUpdateNotification message, Id connectionId) throws GameException {
-        handler.handlePlayerUpdateNotification(message);
+        handler.handlePlayerUpdateNotification(message, connectionId.getInt());
     }
 
     @Override

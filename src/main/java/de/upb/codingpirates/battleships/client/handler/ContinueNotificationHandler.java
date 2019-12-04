@@ -15,7 +15,7 @@ public class ContinueNotificationHandler implements MessageHandler<ContinueNotif
 
     @Override
     public void handle(ContinueNotification message, Id connectionId) throws GameException {
-        handler.handleContinueNotification(message);
+        handler.handleContinueNotification(message, connectionId.getInt());
     }
 
     @Override

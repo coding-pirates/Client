@@ -15,7 +15,7 @@ public class PauseNotificationHandler implements MessageHandler<PauseNotificatio
 
     @Override
     public void handle(PauseNotification message, Id connectionId) throws GameException {
-        handler.handlePauseNotification(message);
+        handler.handlePauseNotification(message, connectionId.getInt());
     }
 
     @Override

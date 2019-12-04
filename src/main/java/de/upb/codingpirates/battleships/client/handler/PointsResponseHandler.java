@@ -15,7 +15,7 @@ public class PointsResponseHandler implements MessageHandler<PointsResponse> {
 
     @Override
     public void handle(PointsResponse message, Id connectionId) throws GameException {
-        handler.handlePointsResponse(message);
+        handler.handlePointsResponse(message, connectionId.getInt());
     }
 
     @Override

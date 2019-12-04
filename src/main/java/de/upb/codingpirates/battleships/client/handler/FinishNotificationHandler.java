@@ -15,7 +15,7 @@ public class FinishNotificationHandler implements MessageHandler<FinishNotificat
 
     @Override
     public void handle(FinishNotification message, Id connectionId) throws GameException {
-        handler.handleFinishNotification(message);
+        handler.handleFinishNotification(message, connectionId.getInt());
     }
 
     @Override

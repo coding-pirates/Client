@@ -15,7 +15,7 @@ public class RoundStartNotificationHandler implements MessageHandler<RoundStartN
 
     @Override
     public void handle(RoundStartNotification message, Id connectionId) throws GameException {
-        handler.handleRoundStartNotification(message);
+        handler.handleRoundStartNotification(message, connectionId.getInt());
     }
 
     @Override

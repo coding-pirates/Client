@@ -15,7 +15,7 @@ public class LobbyResponseHandler implements MessageHandler<LobbyResponse> {
 
     @Override
     public void handle(LobbyResponse message, Id connectionId) throws GameException {
-        handler.handleLobbyResponse(message);
+        handler.handleLobbyResponse(message, connectionId.getInt());
     }
 
     @Override

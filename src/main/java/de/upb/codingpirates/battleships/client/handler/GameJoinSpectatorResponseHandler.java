@@ -15,7 +15,7 @@ public class GameJoinSpectatorResponseHandler implements MessageHandler<GameJoin
 
     @Override
     public void handle(GameJoinSpectatorResponse message, Id connectionId) throws GameException {
-        handler.handleGameJoinSpectator(message);
+        handler.handleGameJoinSpectator(message, connectionId.getInt());
     }
 
     @Override
