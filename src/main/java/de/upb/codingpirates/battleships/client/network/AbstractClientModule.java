@@ -6,6 +6,7 @@ import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 
 public abstract class AbstractClientModule<T extends ConnectionHandler> extends AbstractModule {
+
     private Class<T> connection;
 
     public AbstractClientModule(Class<T> connection) {
