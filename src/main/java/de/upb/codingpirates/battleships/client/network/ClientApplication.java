@@ -3,13 +3,13 @@ package de.upb.codingpirates.battleships.client.network;
 
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.NetworkApplication;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ClientApplication<T extends ConnectionHandler> extends NetworkApplication{
-    private static final Logger LOGGER = Logger.getLogger(ClientApplication.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Nonnull
     private final T clientConnector;
@@ -31,10 +31,10 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
         try {
             return  new ClientApplication<>(clientModule).getClientConnector();
         } catch (IllegalAccessException e) {
-            LOGGER.log(Level.INFO,"failed", e);
+            LOGGER.info("failed", e);
             throw new IllegalStateException("Could not create ClientApplication " + clientModule.getName());
         } catch (InstantiationException e) {
-            LOGGER.log(Level.INFO,"failed", e);
+            LOGGER.info("failed", e);
             throw new IllegalStateException("Could not create ClientApplication");
         }
     }
