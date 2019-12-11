@@ -13,7 +13,7 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
 
     @Nonnull
     private final T clientConnector;
-    private ClientApplication(Class<? extends AbstractClientModule<T>> clientModule) throws IllegalAccessException, InstantiationException {
+    private <R extends ClientModule<T>> ClientApplication(R clientModule) throws IllegalAccessException, InstantiationException {
         LOGGER.info("Start client network module");
 
         this.useModule(clientModule).run();
@@ -26,16 +26,12 @@ public class ClientApplication<T extends ConnectionHandler> extends NetworkAppli
         return clientConnector;
     }
 
-    public static <T extends ConnectionHandler> T create(Class<? extends AbstractClientModule<T>> clientModule) {
-        //noinspection TryWithIdenticalCatches
+    public static <R extends ClientModule<T>,T extends ConnectionHandler> T create(R clientModule) {
         try {
-            return  new ClientApplication<>(clientModule).getClientConnector();
-        } catch (IllegalAccessException e) {
+            return new ClientApplication<>(clientModule).getClientConnector();
+        } catch (IllegalAccessException | InstantiationException e) {
             LOGGER.info("failed", e);
-            throw new IllegalStateException("Could not create ClientApplication " + clientModule.getName());
-        } catch (InstantiationException e) {
-            LOGGER.info("failed", e);
-            throw new IllegalStateException("Could not create ClientApplication");
+            throw new IllegalStateException("Could not create ClientApplication with hander: " + clientModule.getConnectionHandlerClass() + ", and reader: " + clientModule.getClientReadeMethodClass());
         }
     }
 

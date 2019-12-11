@@ -11,11 +11,15 @@ import java.io.IOException;
 
 public class ClientConnector implements ConnectionHandler {
 
-    @Inject
-    private Handler handler;
+    protected final Handler handler;
+
+    protected final ClientConnectionManager clientConnector;
 
     @Inject
-    private ClientConnectionManager clientConnector;
+    public ClientConnector(Handler handler, ClientConnectionManager clientConnector) {
+        this.handler = handler;
+        this.clientConnector = clientConnector;
+    }
 
     public void connect(String host, int port) throws IOException {
         this.clientConnector.create(host, port);
