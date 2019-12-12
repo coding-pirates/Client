@@ -1,13 +1,14 @@
 package de.upb.codingpirates.battleships.client.network;
 
-import com.google.inject.Inject;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.connectionmanager.ClientConnectionManager;
 import de.upb.codingpirates.battleships.network.exceptions.BattleshipException;
 import de.upb.codingpirates.battleships.network.message.Message;
-
-import java.io.IOException;
 
 public class ClientConnector implements ConnectionHandler {
 

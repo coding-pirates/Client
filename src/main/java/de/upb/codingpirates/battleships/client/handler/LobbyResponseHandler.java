@@ -1,6 +1,7 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
+
 import de.upb.codingpirates.battleships.client.Handler;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
