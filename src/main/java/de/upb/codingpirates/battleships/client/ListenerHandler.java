@@ -14,12 +14,12 @@ import java.util.Map;
 import de.upb.codingpirates.battleships.client.listener.MessageHandlerListener;
 
 @SuppressWarnings("UnstableApiUsage")
-public class Handler {
+public class ListenerHandler {
     private static final List EMPTY = ImmutableList.of();
 
     private static Map<TypeToken<?>, List<MessageHandlerListener>> listeners = Collections.synchronizedMap(Maps.newHashMap());
 
-    public static <T extends MessageHandlerListener> void registerListener(MessageHandlerListener listener){
+    public static void registerListener(MessageHandlerListener listener){
 
         for (TypeToken<?> token:TypeToken.of(listener.getClass()).getTypes().interfaces()){
             if(!listeners.containsKey(token)){

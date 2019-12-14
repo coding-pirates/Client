@@ -1,7 +1,6 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import com.google.inject.Inject;
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.SpectatorUpdateNotificationListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
@@ -13,7 +12,7 @@ public class SpectatorUpdateNotificationHandler implements MessageHandler<Specta
 
     @Override
     public void handle(SpectatorUpdateNotification message, Id connectionId) throws GameException {
-        for(SpectatorUpdateNotificationListener listener : Handler.get(SpectatorUpdateNotificationListener.class)){
+        for(SpectatorUpdateNotificationListener listener : ListenerHandler.get(SpectatorUpdateNotificationListener.class)){
             listener.onSpectatorUpdateNotification(message,connectionId.getInt());
         }
     }

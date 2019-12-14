@@ -1,9 +1,8 @@
 package de.upb.codingpirates.battleships.client.network;
 
 import com.google.inject.Inject;
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.BattleshipsExceptionListener;
-import de.upb.codingpirates.battleships.client.listener.MessageHandlerListener;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.connectionmanager.ClientConnectionManager;
 import de.upb.codingpirates.battleships.network.exceptions.BattleshipException;
@@ -34,7 +33,7 @@ public class ClientConnector implements ConnectionHandler {
 
     @Override
     public void handleBattleshipException(BattleshipException e) {
-        for(BattleshipsExceptionListener listener : Handler.get(BattleshipsExceptionListener.class)){
+        for(BattleshipsExceptionListener listener : ListenerHandler.get(BattleshipsExceptionListener.class)){
             listener.onBattleshipException(e,clientConnector.getConnection().getId().getInt());
         }
     }

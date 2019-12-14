@@ -1,8 +1,7 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.ConnectionClosedReportListener;
-import de.upb.codingpirates.battleships.client.listener.MessageHandlerListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -13,7 +12,7 @@ public class ConnectionClosedReportHandler implements MessageHandler<ConnectionC
 
     @Override
     public void handle(ConnectionClosedReport message, Id connectionId) throws GameException {
-        for(ConnectionClosedReportListener listener : Handler.get(ConnectionClosedReportListener.class)){
+        for(ConnectionClosedReportListener listener : ListenerHandler.get(ConnectionClosedReportListener.class)){
             listener.onConnectionClosedReport(message,connectionId.getInt());
         }
     }

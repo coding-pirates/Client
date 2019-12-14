@@ -2,7 +2,7 @@ package de.upb.codingpirates.battleships.client.network;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import de.upb.codingpirates.battleships.client.Handler;
+
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 import de.upb.codingpirates.battleships.network.util.ClientReaderMethod;

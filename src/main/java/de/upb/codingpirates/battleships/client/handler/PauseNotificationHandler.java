@@ -1,7 +1,6 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import com.google.inject.Inject;
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.PauseNotificationListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
@@ -13,7 +12,7 @@ public class PauseNotificationHandler implements MessageHandler<PauseNotificatio
 
     @Override
     public void handle(PauseNotification message, Id connectionId) throws GameException {
-        for(PauseNotificationListener listener : Handler.get(PauseNotificationListener.class)){
+        for(PauseNotificationListener listener : ListenerHandler.get(PauseNotificationListener.class)){
             listener.onPauseNotification(message,connectionId.getInt());
         }
     }

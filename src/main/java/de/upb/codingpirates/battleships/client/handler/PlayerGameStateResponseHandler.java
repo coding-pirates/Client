@@ -1,7 +1,6 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import com.google.inject.Inject;
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.PlayerGameStateResponseListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
@@ -13,7 +12,7 @@ public class PlayerGameStateResponseHandler implements MessageHandler<PlayerGame
 
     @Override
     public void handle(PlayerGameStateResponse message, Id connectionId) throws GameException {
-        for(PlayerGameStateResponseListener listener : Handler.get(PlayerGameStateResponseListener.class)){
+        for(PlayerGameStateResponseListener listener : ListenerHandler.get(PlayerGameStateResponseListener.class)){
             listener.onPlayerGameStateResponse(message,connectionId.getInt());
         }
     }
