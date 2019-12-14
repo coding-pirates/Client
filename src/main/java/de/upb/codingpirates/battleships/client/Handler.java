@@ -1,5 +1,6 @@
 package de.upb.codingpirates.battleships.client;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 
@@ -14,6 +15,7 @@ import de.upb.codingpirates.battleships.client.listener.MessageHandlerListener;
 
 @SuppressWarnings("UnstableApiUsage")
 public class Handler {
+    private static final List EMPTY = ImmutableList.of();
 
     private static Map<TypeToken<?>, List<MessageHandlerListener>> listeners = Collections.synchronizedMap(Maps.newHashMap());
 
@@ -29,7 +31,7 @@ public class Handler {
 
     @SuppressWarnings("unchecked")
     public static <T extends MessageHandlerListener> List<T> get(Class<T> listener){
-        return listeners.containsKey(TypeToken.of(listener)) ? (List<T>)listeners.get(TypeToken.of(listener)):Lists.newArrayList();
+        return listeners.containsKey(TypeToken.of(listener)) ? (List<T>)listeners.get(TypeToken.of(listener)):EMPTY;
     }
 
 }
