@@ -12,18 +12,15 @@ public class ClientModule<T extends ConnectionHandler> extends AbstractModule {
 
     private final Class<T> connectionHandler;
     private final Class<? extends ClientReaderMethod> clientReaderMethod;
-    private final Class<? extends Handler> messageHandler;
 
-    public ClientModule(Class<T> connectionHandler, Class<? extends Handler> messageHandler){
+    public ClientModule(Class<T> connectionHandler){
         this.connectionHandler = connectionHandler;
         this.clientReaderMethod = DefaultReaderMethod.class;
-        this.messageHandler = messageHandler;
     }
 
-    public ClientModule(Class<T> connectionHandler, Class<? extends ClientReaderMethod> readerMethod, Class<? extends Handler> messageHandler) {
+    public ClientModule(Class<T> connectionHandler, Class<? extends ClientReaderMethod> readerMethod) {
         this.connectionHandler = connectionHandler;
         this.clientReaderMethod = readerMethod;
-        this.messageHandler = messageHandler;
     }
 
     @Override
@@ -32,7 +29,6 @@ public class ClientModule<T extends ConnectionHandler> extends AbstractModule {
 
         this.bind(ConnectionHandler.class).to(connectionHandler).in(Singleton.class);
         this.bind(ClientReaderMethod.class).to(clientReaderMethod);
-        this.bind(Handler.class).to(messageHandler);
     }
 
     public Class<T> getConnectionHandlerClass(){

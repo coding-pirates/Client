@@ -2,6 +2,7 @@ package de.upb.codingpirates.battleships.client.handler;
 
 import com.google.inject.Inject;
 import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.listener.RemainingTimeResponseListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -10,12 +11,11 @@ import de.upb.codingpirates.battleships.network.message.response.RemainingTimeRe
 
 public class RemainingTimeResponseHandler implements MessageHandler<RemainingTimeResponse> {
 
-    @Inject
-    private Handler handler;
-
     @Override
     public void handle(RemainingTimeResponse message, Id connectionId) throws GameException {
-        handler.handleRemainingTimeResponse(message, connectionId.getInt());
+        for(RemainingTimeResponseListener listener : Handler.get(RemainingTimeResponseListener.class)){
+            listener.onRemainingTimeResponse(message,connectionId.getInt());
+        }
     }
 
     @Override
