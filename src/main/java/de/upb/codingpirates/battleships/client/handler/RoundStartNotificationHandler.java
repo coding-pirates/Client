@@ -2,7 +2,8 @@ package de.upb.codingpirates.battleships.client.handler;
 
 import javax.inject.Inject;
 
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
+import de.upb.codingpirates.battleships.client.listener.RoundStartNotificationListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -11,12 +12,11 @@ import de.upb.codingpirates.battleships.network.message.notification.RoundStartN
 
 public class RoundStartNotificationHandler implements MessageHandler<RoundStartNotification> {
 
-    @Inject
-    private Handler handler;
-
     @Override
     public void handle(RoundStartNotification message, Id connectionId) throws GameException {
-        handler.handleRoundStartNotification(message, connectionId.getInt());
+        for (RoundStartNotificationListener listener : ListenerHandler.get(RoundStartNotificationListener.class)){
+            listener.onRoundStartNotification(message,connectionId.getInt());
+        }
     }
 
     @Override

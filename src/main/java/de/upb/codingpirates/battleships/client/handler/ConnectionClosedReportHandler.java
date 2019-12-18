@@ -2,7 +2,8 @@ package de.upb.codingpirates.battleships.client.handler;
 
 import javax.inject.Inject;
 
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
+import de.upb.codingpirates.battleships.client.listener.ConnectionClosedReportListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -11,12 +12,11 @@ import de.upb.codingpirates.battleships.network.message.report.ConnectionClosedR
 
 public class ConnectionClosedReportHandler implements MessageHandler<ConnectionClosedReport> {
 
-    @Inject
-    private Handler handler;
-
     @Override
     public void handle(ConnectionClosedReport message, Id connectionId) throws GameException {
-        handler.handleConnectionClosedReport(message, connectionId.getInt());
+        for(ConnectionClosedReportListener listener : ListenerHandler.get(ConnectionClosedReportListener.class)){
+            listener.onConnectionClosedReport(message,connectionId.getInt());
+        }
     }
 
     @Override

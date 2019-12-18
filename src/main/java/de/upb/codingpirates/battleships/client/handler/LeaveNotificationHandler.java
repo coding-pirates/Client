@@ -2,7 +2,8 @@ package de.upb.codingpirates.battleships.client.handler;
 
 import javax.inject.Inject;
 
-import de.upb.codingpirates.battleships.client.Handler;
+import de.upb.codingpirates.battleships.client.ListenerHandler;
+import de.upb.codingpirates.battleships.client.listener.LeaveNotificationListener;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
@@ -11,12 +12,11 @@ import de.upb.codingpirates.battleships.network.message.notification.LeaveNotifi
 
 public class LeaveNotificationHandler implements MessageHandler<LeaveNotification> {
 
-    @Inject
-    private Handler handler;
-
     @Override
     public void handle(LeaveNotification message, Id connectionId) throws GameException {
-        handler.handleLeaveNotification(message, connectionId.getInt());
+        for (LeaveNotificationListener listener : ListenerHandler.get(LeaveNotificationListener.class)){
+            listener.onLeaveNotification(message,connectionId.getInt());
+        }
     }
 
     @Override
