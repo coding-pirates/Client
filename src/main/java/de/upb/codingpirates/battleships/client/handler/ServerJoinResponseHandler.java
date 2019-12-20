@@ -1,15 +1,16 @@
 package de.upb.codingpirates.battleships.client.handler;
 
-import javax.inject.Inject;
-
 import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.ServerJoinResponseListener;
 import de.upb.codingpirates.battleships.network.connectionmanager.ClientConnectionManager;
 import de.upb.codingpirates.battleships.network.exceptions.game.GameException;
 import de.upb.codingpirates.battleships.network.id.Id;
 import de.upb.codingpirates.battleships.network.message.Message;
-import de.upb.codingpirates.battleships.network.message.MessageHandler;
+import de.upb.codingpirates.battleships.network.message.handler.MessageHandler;
 import de.upb.codingpirates.battleships.network.message.response.ServerJoinResponse;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 public class ServerJoinResponseHandler implements MessageHandler<ServerJoinResponse> {
 
@@ -17,7 +18,7 @@ public class ServerJoinResponseHandler implements MessageHandler<ServerJoinRespo
     private ClientConnectionManager clientConnector;
 
     @Override
-    public void handle(ServerJoinResponse message, Id connectionId) throws GameException {
+    public void handle(@Nonnull ServerJoinResponse message, @Nonnull Id connectionId) throws GameException {
         this.clientConnector.getConnection().setId(new Id(message.getClientId()));
         for (ServerJoinResponseListener listener : ListenerHandler.get(ServerJoinResponseListener.class)){
             listener.onServerJoinResponse(message,connectionId.getInt());
@@ -25,7 +26,7 @@ public class ServerJoinResponseHandler implements MessageHandler<ServerJoinRespo
     }
 
     @Override
-    public boolean canHandle(Message message) {
+    public boolean canHandle(@Nonnull Message message) {
         return message instanceof ServerJoinResponse;
     }
 }
