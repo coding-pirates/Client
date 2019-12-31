@@ -2,7 +2,6 @@ package de.upb.codingpirates.battleships.client.network;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 import de.upb.codingpirates.battleships.network.util.ClientReaderMethod;
@@ -28,6 +27,7 @@ public class ClientModule<T extends ConnectionHandler> extends AbstractModule {
         this.install(new ClientNetworkModule());
 
         this.bind(ConnectionHandler.class).to(connectionHandler).in(Singleton.class);
+        this.bind(connectionHandler).in(Singleton.class);
         this.bind(ClientReaderMethod.class).to(clientReaderMethod);
     }
 
