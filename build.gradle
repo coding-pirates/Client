@@ -39,3 +39,11 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+jar{
+    manifest {
+        attributes 'Implementation-Title': 'Battleships Client',
+                'Implementation-Version': "${project.client_version}"
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
