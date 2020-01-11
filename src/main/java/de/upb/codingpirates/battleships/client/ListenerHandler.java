@@ -25,7 +25,8 @@ public class ListenerHandler {
             if(!listeners.containsKey(token)){
                 listeners.put(token,Lists.newArrayList());
             }
-            listeners.get(token).add(listener);
+            if(!listeners.get(token).contains(listener))
+                listeners.get(token).add(listener);
         }
     }
 
