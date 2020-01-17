@@ -11,8 +11,6 @@ import de.upb.codingpirates.battleships.network.connectionmanager.ClientConnecti
 import de.upb.codingpirates.battleships.network.exceptions.BattleshipException;
 import de.upb.codingpirates.battleships.network.message.Message;
 
-import java.io.IOException;
-
 public class ClientConnector implements ConnectionHandler {
 
     protected final ClientConnectionManager clientConnector;
