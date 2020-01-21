@@ -4,7 +4,7 @@ apply from: "${rootProject.rootDir}/gradle/java.gradle"
 
 dependencies {
     implementation project(":network")
-    implementation project(":logic")
+    implementation  project(":logic")
 
     implementation group: 'org.roboguice', name: 'roboguice', version: '4.0.0'
 
@@ -39,17 +39,5 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
-    }
-}
-
-jar{
-    baseName = "client_${project.client_version}"
-    manifest {
-        attributes 'Implementation-Title': 'Battleships Client',
-                'Implementation-Version': "${project.client_version}"
-    }
-    from ( configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } ) {
-        exclude 'META-INF/**'
-        exclude 'log4j2.xml'
     }
 }
