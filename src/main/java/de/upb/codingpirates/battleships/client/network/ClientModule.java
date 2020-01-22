@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModule;
 import de.upb.codingpirates.battleships.network.util.ClientReaderMethod;
+import de.upb.codingpirates.battleships.network.util.DefaultReaderMethod;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +22,7 @@ public class ClientModule extends AbstractModule {
         if(readerMethod != null)
             this.clientReaderMethod = readerMethod;
         else
-            this.clientReaderMethod = ClientReaderMethod.class;
+            this.clientReaderMethod = DefaultReaderMethod.class;
     }
 
     @Override
