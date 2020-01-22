@@ -1,17 +1,17 @@
 apply plugin: "java"
 
-apply from: "${rootProject.rootDir}/gradle/javadoc.gradle"
+apply from: "${rootProject.rootDir}/gradle/java.gradle"
 
 dependencies {
     implementation project(":network")
-    implementation project(":logic")
+    implementation  project(":logic")
 
     implementation group: 'org.roboguice', name: 'roboguice', version: '4.0.0'
 
     implementation group: 'com.google.guava', name: 'guava', version: '28.1-android'
 
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.3'
-    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.3'
+    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.3'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.2'
 }

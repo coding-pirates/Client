@@ -11,6 +11,7 @@ import de.upb.codingpirates.battleships.network.message.response.ServerJoinRespo
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.io.IOException;
 
 public class ServerJoinResponseHandler implements MessageHandler<ServerJoinResponse> {
 
@@ -18,10 +19,10 @@ public class ServerJoinResponseHandler implements MessageHandler<ServerJoinRespo
     private ClientConnectionManager clientConnector;
 
     @Override
-    public void handle(@Nonnull ServerJoinResponse message, @Nonnull Id connectionId) throws GameException {
+    public void handle(@Nonnull ServerJoinResponse message, @Nonnull Id connectionId) throws GameException, IOException {
         this.clientConnector.getConnection().setId(new Id(message.getClientId()));
-        for (ServerJoinResponseListener listener : ListenerHandler.get(ServerJoinResponseListener.class)){
-            listener.onServerJoinResponse(message,connectionId.getInt());
+        for (ServerJoinResponseListener listener : ListenerHandler.get(ServerJoinResponseListener.class)) {
+            listener.onServerJoinResponse(message, connectionId.getInt());
         }
     }
 

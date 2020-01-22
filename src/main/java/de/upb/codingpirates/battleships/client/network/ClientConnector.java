@@ -1,9 +1,5 @@
 package de.upb.codingpirates.battleships.client.network;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import de.upb.codingpirates.battleships.client.ListenerHandler;
 import de.upb.codingpirates.battleships.client.listener.BattleshipsExceptionListener;
 import de.upb.codingpirates.battleships.network.ConnectionHandler;
@@ -11,7 +7,7 @@ import de.upb.codingpirates.battleships.network.connectionmanager.ClientConnecti
 import de.upb.codingpirates.battleships.network.exceptions.BattleshipException;
 import de.upb.codingpirates.battleships.network.message.Message;
 
-import java.io.IOException;
+import javax.inject.Inject;
 
 public class ClientConnector implements ConnectionHandler {
 
@@ -22,16 +18,24 @@ public class ClientConnector implements ConnectionHandler {
         this.clientConnector = clientConnector;
     }
 
-    public void connect(String host, int port) throws IOException {
+    public void connect(String host, int port) {
         this.clientConnector.create(host, port);
     }
 
-    public void sendMessageToServer(Message message) throws IOException {
+    public void connect(String host, int port, Runnable onSuccess, Runnable onFail) {
+        this.clientConnector.create(host, port, onSuccess, onFail);
+    }
+
+    public void sendMessageToServer(Message message) {
         this.clientConnector.send(message);
     }
 
-    public void disconnect() throws IOException {
+    public void disconnect() {
         this.clientConnector.disconnect();
+    }
+
+    public void disconnect(Runnable onSuccess, Runnable onFailure){
+        this.clientConnector.disconnect(onSuccess, onFailure);
     }
 
     @Override
