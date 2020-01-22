@@ -36,7 +36,7 @@ public class ClientApplication extends NetworkApplication{
     }
 
     public static ClientConnector create(@Nullable Class<? extends ClientReaderMethod> readerMethod) {
-        return new ClientApplication(new ClientModule(readerMethod)).getClientConnector();
+        return new ClientApplication(new ClientModule(null, readerMethod)).getClientConnector();
     }
 
 }

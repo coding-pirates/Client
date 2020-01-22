@@ -10,9 +10,14 @@ import javax.annotation.Nullable;
 
 public class ClientModule extends AbstractModule {
 
+    private final Class<? extends ClientConnector> clientCollector;
     private final Class<? extends ClientReaderMethod> clientReaderMethod;
 
-    public ClientModule(@Nullable Class<? extends ClientReaderMethod> readerMethod) {
+    public ClientModule(@Nullable Class<? extends ClientConnector> clientCollector, @Nullable Class<? extends ClientReaderMethod> readerMethod) {
+        if(clientCollector != null)
+            this.clientCollector = clientCollector;
+        else
+            this.clientCollector = ClientConnector.class;
         if(readerMethod != null)
             this.clientReaderMethod = readerMethod;
         else
@@ -23,7 +28,7 @@ public class ClientModule extends AbstractModule {
     protected void configure() {
         this.install(new ClientNetworkModule());
 
-        this.bind(ConnectionHandler.class).to(ClientConnector.class).in(Singleton.class);
+        this.bind(ConnectionHandler.class).to(clientCollector).in(Singleton.class);
         this.bind(ClientConnector.class).in(Singleton.class);
         this.bind(ClientReaderMethod.class).to(clientReaderMethod);
     }
