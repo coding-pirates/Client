@@ -7,35 +7,31 @@ import de.upb.codingpirates.battleships.network.network.module.ClientNetworkModu
 import de.upb.codingpirates.battleships.network.util.ClientReaderMethod;
 import de.upb.codingpirates.battleships.network.util.DefaultReaderMethod;
 
-public class ClientModule<T extends ConnectionHandler> extends AbstractModule {
+import javax.annotation.Nullable;
 
-    private final Class<T> connectionHandler;
+public class ClientModule extends AbstractModule {
+
+    private final Class<? extends ClientConnector> clientCollector;
     private final Class<? extends ClientReaderMethod> clientReaderMethod;
 
-    public ClientModule(Class<T> connectionHandler){
-        this.connectionHandler = connectionHandler;
-        this.clientReaderMethod = DefaultReaderMethod.class;
-    }
-
-    public ClientModule(Class<T> connectionHandler, Class<? extends ClientReaderMethod> readerMethod) {
-        this.connectionHandler = connectionHandler;
-        this.clientReaderMethod = readerMethod;
+    public ClientModule(@Nullable Class<? extends ClientConnector> clientCollector, @Nullable Class<? extends ClientReaderMethod> readerMethod) {
+        if(clientCollector != null)
+            this.clientCollector = clientCollector;
+        else
+            this.clientCollector = ClientConnector.class;
+        if(readerMethod != null)
+            this.clientReaderMethod = readerMethod;
+        else
+            this.clientReaderMethod = DefaultReaderMethod.class;
     }
 
     @Override
     protected void configure() {
         this.install(new ClientNetworkModule());
 
-        this.bind(ConnectionHandler.class).to(connectionHandler).in(Singleton.class);
-        this.bind(connectionHandler).in(Singleton.class);
+        this.bind(ConnectionHandler.class).to(clientCollector).in(Singleton.class);
+        this.bind(ClientConnector.class).in(Singleton.class);
         this.bind(ClientReaderMethod.class).to(clientReaderMethod);
     }
 
-    public Class<T> getConnectionHandlerClass(){
-        return connectionHandler;
-    }
-
-    public Class<? extends ClientReaderMethod> getClientReadeMethodClass(){
-        return clientReaderMethod;
-    }
 }

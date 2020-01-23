@@ -1,38 +1,42 @@
 package de.upb.codingpirates.battleships.client.network;
 
 
-import de.upb.codingpirates.battleships.network.ConnectionHandler;
 import de.upb.codingpirates.battleships.network.NetworkApplication;
+import de.upb.codingpirates.battleships.network.util.ClientReaderMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class ClientApplication<T extends ConnectionHandler> extends NetworkApplication{
+public class ClientApplication extends NetworkApplication{
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Nonnull
-    private final T clientConnector;
-    private <R extends ClientModule<T>> ClientApplication(R clientModule) throws IllegalAccessException, InstantiationException {
+    private final ClientConnector clientConnector;
+    private <T extends ClientModule> ClientApplication(T clientModule) {
         LOGGER.info("Start client network module");
 
         this.useModule(clientModule).run();
-        //noinspection ConstantConditions,unchecked
-        this.clientConnector = (T) this.getHandler();
+        //noinspection ConstantConditions
+        this.clientConnector =  (ClientConnector) this.getHandler();
     }
 
     @Nonnull
-    public T getClientConnector() {
+    public ClientConnector getClientConnector() {
         return clientConnector;
     }
 
-    public static <R extends ClientModule<T>,T extends ConnectionHandler> T create(R clientModule) {
-        try {
-            return new ClientApplication<>(clientModule).getClientConnector();
-        } catch (IllegalAccessException | InstantiationException e) {
-            LOGGER.info("failed", e);
-            throw new IllegalStateException("Could not create ClientApplication with hander: " + clientModule.getConnectionHandlerClass() + ", and reader: " + clientModule.getClientReadeMethodClass());
-        }
+    public static ClientConnector create(){
+        return ClientApplication.create((Class<? extends ClientReaderMethod>)null);
+    }
+
+    public static <T extends ClientModule> ClientConnector create(T module){
+        return new ClientApplication(module).getClientConnector();
+    }
+
+    public static ClientConnector create(@Nullable Class<? extends ClientReaderMethod> readerMethod) {
+        return new ClientApplication(new ClientModule(null, readerMethod)).getClientConnector();
     }
 
 }
