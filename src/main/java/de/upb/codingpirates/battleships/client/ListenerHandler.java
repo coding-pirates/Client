@@ -12,6 +12,7 @@ import java.util.Map;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ListenerHandler {
+    @SuppressWarnings("rawtypes")
     private static final List EMPTY = ImmutableList.of();
 
     private static Map<TypeToken<?>, List<MessageHandlerListener>> listeners = Collections.synchronizedMap(Maps.newHashMap());
@@ -30,7 +31,7 @@ public class ListenerHandler {
         }
     }
 
-    public static void unregisterListener(MessageHandlerListener listener){
+    private static void unregisterListener(MessageHandlerListener listener) {
         if(allListener.contains(listener)){
             allListener.remove(listener);
             for (TypeToken<?> token:TypeToken.of(listener.getClass()).getTypes().interfaces()){
@@ -40,8 +41,18 @@ public class ListenerHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends MessageHandlerListener> List<T> get(Class<T> listener){
-        return listeners.containsKey(TypeToken.of(listener)) ? (List<T>)listeners.get(TypeToken.of(listener)):EMPTY;
+    public static <T extends MessageHandlerListener> List<T> get(Class<T> listener) {
+        if(ListenerHandler.listeners.containsKey(TypeToken.of(listener))){
+            List<MessageHandlerListener> list = Lists.newArrayList(ListenerHandler.listeners.get(TypeToken.of(listener)));
+            for (MessageHandlerListener handler: list){
+                if(handler.invalidated()){
+                    ListenerHandler.listeners.get(TypeToken.of(listener)).remove(handler);
+                }
+            }
+            return (List<T>) ListenerHandler.listeners.get(TypeToken.of(listener));
+        } else {
+            return EMPTY;
+        }
     }
 
 }
