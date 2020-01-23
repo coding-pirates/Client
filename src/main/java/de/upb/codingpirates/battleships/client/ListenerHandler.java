@@ -30,6 +30,15 @@ public class ListenerHandler {
         }
     }
 
+    public static void unregisterListener(MessageHandlerListener listener){
+        if(allListener.contains(listener)){
+            allListener.remove(listener);
+            for (TypeToken<?> token:TypeToken.of(listener.getClass()).getTypes().interfaces()){
+                listeners.get(token).remove(listener);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static <T extends MessageHandlerListener> List<T> get(Class<T> listener){
         return listeners.containsKey(TypeToken.of(listener)) ? (List<T>)listeners.get(TypeToken.of(listener)):EMPTY;
