@@ -15,10 +15,12 @@ public class ListenerHandler {
     private static final List EMPTY = ImmutableList.of();
 
     private static Map<TypeToken<?>, List<MessageHandlerListener>> listeners = Collections.synchronizedMap(Maps.newHashMap());
+    private static List<MessageHandlerListener> allListener = Collections.synchronizedList(Lists.newArrayList());
 
-    public static void registerListener(MessageHandlerListener listener){
-        if(listeners.values().stream().anyMatch(list->list.contains(listener)))
+    public static void registerListener(MessageHandlerListener listener) {
+        if(allListener.contains(listener))
             return;
+        allListener.add(listener);
         for (TypeToken<?> token:TypeToken.of(listener.getClass()).getTypes().interfaces()){
             if(!listeners.containsKey(token)){
                 listeners.put(token,Lists.newArrayList());
