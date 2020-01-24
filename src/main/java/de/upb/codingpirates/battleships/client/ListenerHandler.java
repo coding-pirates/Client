@@ -23,10 +23,10 @@ public class ListenerHandler {
             return;
         allListener.add(listener);
         for (TypeToken<?> token:TypeToken.of(listener.getClass()).getTypes().interfaces()){
-            if(!listeners.containsKey(token)){
-                listeners.put(token,Lists.newArrayList());
+            if (!listeners.containsKey(token)) {
+                listeners.put(token, Lists.newArrayList());
             }
-            if(!listeners.get(token).contains(listener))
+            if (!listeners.get(token).contains(listener))
                 listeners.get(token).add(listener);
         }
     }
