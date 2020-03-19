@@ -2,9 +2,9 @@ package de.upb.codingpirates.battleships.client;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import de.upb.codingpirates.battleships.client.listener.MessageHandlerListener;
-import org.roboguice.shaded.goole.common.collect.Maps;
 
 import java.util.Collections;
 import java.util.List;
